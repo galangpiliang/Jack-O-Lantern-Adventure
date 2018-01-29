@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
 	Animator anim; //animator dari player
 	Rigidbody2D rigid; //rigidbody 2d dari player
+	
+	public GameObject GameOverCanvas;
+	public GameObject MainmenuCanvas;
+	public GameObject PauseCanvas;
+
+	public GameObject StartPosition;
 
 	/*
 	public GameObject projectile; //objek peluru
@@ -30,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		anim = GetComponent<Animator>();
 		rigid = GetComponent<Rigidbody2D>();
+		Time.timeScale = 0;
 	}
 	
 	// Update is called once per frame
@@ -38,8 +46,43 @@ public class PlayerController : MonoBehaviour {
 			InputHandler();
 		anim.SetInteger("Speed",(int)rigid.velocity.x);
 		if(transform.position.y < -7){
-			SceneManager.LoadScene(0);
+			//SceneManager.LoadScene(0);
+			Gameover();
 		}
+	}
+
+	public void Gameover(){
+		GameOverCanvas.SetActive(true);
+	}
+
+	public void QuitGame(){
+		Application.Quit();
+		 UnityEditor.EditorApplication.isPlaying = false;
+	}
+
+	public void RestartGame(){
+		isDie = false;
+		gameObject.transform.position = StartPosition.transform.position;
+		MainmenuCanvas.SetActive(false);
+		Time.timeScale = 1;
+	}
+
+	public void PlayResume(){
+		Time.timeScale = 1;
+		PauseCanvas.SetActive(false);
+		MainmenuCanvas.SetActive(false);
+	}
+
+	public void Home(){
+		isDie = false;
+		gameObject.transform.position = StartPosition.transform.position;
+		Time.timeScale = 0;
+		MainmenuCanvas.SetActive(true);
+	}
+
+	public void Pause(){
+		Time.timeScale = 0;
+		PauseCanvas.SetActive(true);
 	}
 
 	void InputHandler(){
@@ -124,6 +167,10 @@ public class PlayerController : MonoBehaviour {
 		if(col.gameObject.CompareTag("Ground")){
 			anim.SetBool("IsGrounded",true);
 			isGrounded = true;
+		}
+
+		if(col.gameObject.CompareTag("Finish")){
+			Gameover();
 		}
 	}
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
-	public bool isGrounded = false; //untuk mengecek karakter di ground
+	//public bool isGrounded = false; //untuk mengecek karakter di ground
 	public bool isFacingRight = false;
 	public Transform batas1; //digunakan untuk batas gerak ke kiri
 	public Transform batas2; //digunakan untuk batas gerak ke kanan
@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(isGrounded && !isDie && !isGameOver){
+		if(!isDie && !isGameOver){
 			if(isFacingRight)
 				MoveRight();
 			else
@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col){
 		if(col.gameObject.CompareTag("Ground")){
-			isGrounded = true;
+			//isGrounded = true;
 		}
 		if(col.gameObject.CompareTag("Bullet") && !isDie){
 			Debug.Log("Bulletnih");
@@ -91,14 +91,14 @@ public class EnemyController : MonoBehaviour {
 	//digunakan untuk mengecek apakah player masih diatas tanah atau tidak
 	void OnCollisionStay2D(Collision2D col){
 		if(col.gameObject.CompareTag("Ground")){
-			isGrounded = true;
+			//isGrounded = true;
 		}
 	}
 
 	//digunakan untuk memberi tahu player bahwa sudah tidak diatas tanah
 	void OnCollisionExit2D(Collision2D col){
 		if(col.gameObject.CompareTag("Ground")){
-			isGrounded = false;
+			//isGrounded = false;
 		}
 	}
 
