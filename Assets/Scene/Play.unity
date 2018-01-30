@@ -11332,7 +11332,7 @@ Prefab:
     - target: {fileID: 114782408751083056, guid: 12bc267fb68f44b439c754570014aed7,
         type: 2}
       propertyPath: walkForce
-      value: 35
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 114782408751083056, guid: 12bc267fb68f44b439c754570014aed7,
         type: 2}
